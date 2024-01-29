@@ -1,0 +1,77 @@
+import board
+import digitalio as dio
+import time
+import random
+
+#LEDs
+white = dio.DigitalInOut(board.D8)
+white.direction = dio.Direction.OUTPUT
+green = dio.DigitalInOut(board.D9)
+green.direction = dio.Direction.OUTPUT
+yellow = dio.DigitalInOut(board.D10)
+yellow.direction = dio.Direction.OUTPUT
+red = dio.DigitalInOut(board.D11)
+red.direction = dio.Direction.OUTPUT
+
+#Buttons
+white_btn = dio.DigitalInOut(board.D2)
+white_btn.direction = dio.Direction.INPUT
+green_btn = dio.DigitalInOut(board.D3)
+green_btn.direction = dio.Direction.INPUT
+yellow_btn = dio.DigitalInOut(board.D4)
+yellow_btn.direction = dio.Direction.INPUT
+red_btn = dio.DigitalInOut(board.D5)
+red_btn.direction = dio.Direction.INPUT
+on_btn = dio.DigitalInOut(board.D6)
+on_btn.direction = dio.Direction.INPUT
+
+#list of Btns
+buttons = [white_btn, green_btn, yellow_btn, red_btn
+    ]
+
+#list of LEDs
+LEDS = [white, green, yellow, red
+    ]
+#sequence list
+sequence = []
+def generate():
+    create = random.choice(LEDS)    
+    sequence.append(create)
+    for elm in sequence:
+        elm.value = True
+        time.sleep(.5)
+        elm.value = False
+        time.sleep(.5)
+        
+#saves the user's input 
+def save():
+    for button in buttons:
+        while button.value == False:
+            print("1")
+            print(" ")
+            pass
+            time.sleep(.5)
+        if button.value == True:
+            user.append(button)
+def check():
+    for light in sequence:
+        for elm in user:
+            if elm == light:
+                pass
+            else:
+                print("wrong")
+while True:
+    white.value = white_btn.value
+    green.value = green_btn.value
+    yellow.value = yellow_btn.value
+    red.value = red_btn.value
+    if on_btn.value == True:
+        user = []
+        on_btn.value == True
+        print("on")
+        time.sleep(.5)
+        generate()
+        print(sequence)
+        save()
+        print(user)
+        check()
